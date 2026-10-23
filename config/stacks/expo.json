@@ -65,19 +65,16 @@
     "e2e": {
       "directory": "apps/expo",
       "command": [
-        "maestro",
-        "test",
-        ".maestro",
-        "--format",
-        "junit",
-        "--output",
-        "maestro-report.xml"
+        "bash",
+        "scripts/android-ui-e2e.sh"
       ],
-      "timeout_seconds": 900,
+      "timeout_seconds": 240,
       "artifacts": [
-        "maestro-report.xml",
-        "evidence-home.png",
-        "**/evidence-home.png"
+        "ci-evidence/android-screen.png",
+        "ci-evidence/ui-hierarchy.xml",
+        "ci-evidence/activity-start.txt",
+        "ci-evidence/package-path.txt",
+        "ci-evidence/android-logcat-tail.txt"
       ]
     }
   }
