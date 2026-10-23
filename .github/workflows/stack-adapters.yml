@@ -70,6 +70,8 @@ jobs:
         with:
           api-level: 34
           arch: x86_64
+          disable-animations: true
+          emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect
           script: bash "$GITHUB_WORKSPACE/.github/scripts/run-expo-android-e2e.sh"
       - name: Artifacts
         if: always()
@@ -81,6 +83,7 @@ jobs:
             evidence/stacks/expo/
             apps/expo/metro.log
             apps/expo/maestro-report.xml
+            apps/expo/ci-evidence/
           if-no-files-found: warn
           retention-days: 7
   flutter:
@@ -113,3 +116,4 @@ jobs:
             evidence/stacks/flutter/
           if-no-files-found: warn
           retention-days: 7
+
