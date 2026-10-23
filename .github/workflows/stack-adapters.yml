@@ -58,11 +58,8 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Install Expo and Maestro
-        run: |
-          cd apps/expo && npm install --no-audit --no-fund
-          curl -fsSL https://get.maestro.mobile.dev | bash
-          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+      - name: Install Expo
+        run: cd apps/expo && npm install --no-audit --no-fund
       - name: Static and component checks
         run: python tools/stack_verify.py --stack expo --profile full
       - name: Build and run Android E2E
@@ -70,13 +67,9 @@ jobs:
         with:
           api-level: 34
           arch: x86_64
-          script: |
-            cd apps/expo
-            npx expo run:android --no-bundler
-            npx expo start --localhost --non-interactive > metro.log 2>&1 &
-            sleep 30
-            cd ../..
-            python tools/stack_verify.py --stack expo --profile e2e
+          disable-animations: true
+          emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect
+          script: bash "$GITHUB_WORKSPACE/.github/scripts/run-expo-android-e2e.sh"
       - name: Artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -86,7 +79,7 @@ jobs:
             reports/stack-expo.json
             evidence/stacks/expo/
             apps/expo/metro.log
-            apps/expo/maestro-report.xml
+            apps/expo/ci-evidence/
           if-no-files-found: warn
           retention-days: 7
   flutter:
