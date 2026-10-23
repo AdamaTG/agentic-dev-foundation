@@ -58,11 +58,8 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Install Expo and Maestro
-        run: |
-          cd apps/expo && npm install --no-audit --no-fund
-          curl -fsSL https://get.maestro.mobile.dev | bash
-          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+      - name: Install Expo
+        run: cd apps/expo && npm install --no-audit --no-fund
       - name: Static and component checks
         run: python tools/stack_verify.py --stack expo --profile full
       - name: Build and run Android E2E
@@ -82,7 +79,6 @@ jobs:
             reports/stack-expo.json
             evidence/stacks/expo/
             apps/expo/metro.log
-            apps/expo/maestro-report.xml
             apps/expo/ci-evidence/
           if-no-files-found: warn
           retention-days: 7
