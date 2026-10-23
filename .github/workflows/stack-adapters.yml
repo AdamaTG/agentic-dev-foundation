@@ -70,8 +70,9 @@ jobs:
         with:
           api-level: 34
           arch: x86_64
+          working-directory: apps/expo
           script: |
-            cd apps/expo
+            set -e
             npx expo run:android --no-bundler
             npx expo start --localhost --non-interactive > metro.log 2>&1 &
             sleep 30
