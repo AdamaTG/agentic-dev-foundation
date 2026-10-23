@@ -1,0 +1,36 @@
+name: ADF Expo Maestro diagnostic
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  maestro-driver-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Maestro
+        shell: bash
+        run: |
+          curl -fsSL https://get.maestro.mobile.dev | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+      - name: Diagnose driver against Android Settings
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          disable-animations: true
+          emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect
+          script: bash "$GITHUB_WORKSPACE/.github/scripts/diagnose-maestro-android.sh"
+      - name: Upload diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-expo-diagnostic
+          path: apps/expo/ci-evidence/
+          if-no-files-found: warn
+          retention-days: 7
