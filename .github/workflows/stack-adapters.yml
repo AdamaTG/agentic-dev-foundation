@@ -70,14 +70,7 @@ jobs:
         with:
           api-level: 34
           arch: x86_64
-          working-directory: apps/expo
-          script: |
-            set -e
-            npx expo run:android --no-bundler
-            npx expo start --localhost --non-interactive > metro.log 2>&1 &
-            sleep 30
-            cd ../..
-            python tools/stack_verify.py --stack expo --profile e2e
+          script: bash "$GITHUB_WORKSPACE/.github/scripts/run-expo-android-e2e.sh"
       - name: Artifacts
         if: always()
         uses: actions/upload-artifact@v4
