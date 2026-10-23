@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "full": [
+      "architecture",
+      "unit",
+      "acceptance"
+    ],
+    "quick": [
+      "architecture"
+    ]
+  },
+  "checks": {
+    "architecture": {
+      "command": [
+        "{python}",
+        "tools/check_architecture.py"
+      ],
+      "timeout_seconds": 30
+    },
+    "unit": {
+      "command": [
+        "{python}",
+        "tools/run_unit.py"
+      ],
+      "timeout_seconds": 60
+    },
+    "acceptance": {
+      "command": [
+        "{python}",
+        "tools/check_acceptance.py"
+      ],
+      "timeout_seconds": 30
+    }
+  }
+}

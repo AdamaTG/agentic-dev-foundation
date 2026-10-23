@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+!.env.example
+reports/*.json
+reports/*.log
+state/tasks.json
+state/*.tmp
+evidence/*
+!evidence/.gitkeep

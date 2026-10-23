@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task_id": "TASK-001",
+  "plan_id": "PLAN-001",
+  "acceptance_approved": true,
+  "test_plan_approved": true,
+  "approval_note": "EXEMPLE DEMONSTRATIF seulement : revalider et remplacer pour un projet réel",
+  "criteria": [
+    {
+      "id": "AC-001",
+      "description": "Description vide rejetée",
+      "required": true,
+      "checks": [{"kind": "unittest", "id": "tests.test_signalement.SignalementTests.test_description_obligatoire"}]
+    },
+    {
+      "id": "AC-002",
+      "description": "Identifiants différents, statut initial nouveau",
+      "required": true,
+      "checks": [{"kind": "unittest", "id": "tests.test_signalement.SignalementTests.test_identifiant_unique_et_statut"}]
+    }
+  ]
+}

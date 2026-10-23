@@ -1,0 +1,121 @@
+name: ADF required stack gates
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  next-fastapi:
+    name: gate-next-fastapi
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install apps
+        run: |
+          cd apps/web && npm install --no-audit --no-fund
+          cd ../api && python -m pip install -r requirements.txt
+          cd ../web && npx playwright install --with-deps chromium
+      - name: Web and API lint/type gates
+        run: |
+          cd apps/api
+          python -m ruff check .
+          python -m mypy app --ignore-missing-imports
+      - name: Stack gates including browser E2E
+        run: python tools/stack_verify.py --stack next-fastapi --profile e2e
+      - name: Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-next-fastapi
+          path: |
+            reports/stack-next-fastapi.json
+            evidence/stacks/next-fastapi/
+            apps/web/test-results/
+            apps/web/playwright-report/
+          if-no-files-found: warn
+          retention-days: 7
+  expo:
+    name: gate-expo
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Expo and Maestro
+        run: |
+          cd apps/expo && npm install --no-audit --no-fund
+          curl -fsSL https://get.maestro.mobile.dev | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+      - name: Static and component checks
+        run: python tools/stack_verify.py --stack expo --profile full
+      - name: Build and run Android E2E
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          script: |
+            cd apps/expo
+            npx expo run:android --no-bundler
+            npx expo start --localhost --non-interactive > metro.log 2>&1 &
+            sleep 30
+            cd ../..
+            python tools/stack_verify.py --stack expo --profile e2e
+      - name: Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-expo
+          path: |
+            reports/stack-expo.json
+            evidence/stacks/expo/
+            apps/expo/metro.log
+            apps/expo/maestro-report.xml
+          if-no-files-found: warn
+          retention-days: 7
+  flutter:
+    name: gate-flutter
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Install Linux desktop requirements
+        run: sudo apt-get update && sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev xvfb
+      - name: Generate Linux desktop target and packages
+        run: |
+          cd apps/flutter
+          flutter create . --platforms=linux
+          flutter pub get
+      - name: Static and unit gates
+        run: python3 tools/stack_verify.py --stack flutter --profile quick
+      - name: Integration and E2E on virtual display
+        run: xvfb-run -a python3 tools/stack_verify.py --stack flutter --profile e2e
+      - name: Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-flutter
+          path: |
+            reports/stack-flutter.json
+            evidence/stacks/flutter/
+          if-no-files-found: warn
+          retention-days: 7

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "stack": "next-fastapi",
+  "project_directory": "apps",
+  "profiles": {
+    "quick": [
+      "lint",
+      "typecheck"
+    ],
+    "full": [
+      "lint",
+      "typecheck",
+      "unit",
+      "integration"
+    ],
+    "e2e": [
+      "lint",
+      "typecheck",
+      "unit",
+      "integration",
+      "e2e"
+    ]
+  },
+  "checks": {
+    "lint": {
+      "directory": "apps/web",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "timeout_seconds": 300,
+      "artifacts": []
+    },
+    "typecheck": {
+      "directory": "apps/web",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "timeout_seconds": 300,
+      "artifacts": []
+    },
+    "unit": {
+      "directory": "apps/web",
+      "command": [
+        "npm",
+        "run",
+        "test:unit"
+      ],
+      "timeout_seconds": 300,
+      "artifacts": []
+    },
+    "integration": {
+      "directory": "apps/api",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "tests/integration",
+        "-q",
+        "--junitxml=reports/integration.xml"
+      ],
+      "timeout_seconds": 300,
+      "artifacts": [
+        "reports/integration.xml"
+      ]
+    },
+    "e2e": {
+      "directory": "apps/web",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e"
+      ],
+      "timeout_seconds": 900,
+      "artifacts": [
+        "test-results/**/*.png",
+        "playwright-report/index.html"
+      ]
+    }
+  }
+}

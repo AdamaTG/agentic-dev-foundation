@@ -1,0 +1,16 @@
+# 03 — Stack et environnement
+- **Cible :** `[web / mobile / API / hybride]` (ex. web)
+- **Langages :** `[langages + versions]`
+- **Frameworks :** `[choix, versions]` (ex. à déterminer)
+- **Gestionnaire des dépendances :** `[npm / pip / uv / autre]`
+- **OS de référence :** `Windows + PowerShell`
+- **Bases / stockage :** `[type / restrictions]`
+- **Exécution locale :** `[commandes]`
+- **CI :** `GitHub Actions lorsque dépôt publié`
+- **Modèles IA :** `[local/cloud]` (ex. les deux, choix par tâche)
+- **Commande de formatage :** `[à renseigner]`
+- **Commande lint :** `[à renseigner]`
+- **Commande typage :** `[à renseigner]`
+- **Commande tests :** `[à renseigner]`
+- **Contraintes budgétaires/matérielles :** `[limites]`
+- **Version des outils figée :** `[lockfiles / hashes]`

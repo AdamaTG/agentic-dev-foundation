@@ -1,0 +1,7 @@
+# Remplacer @YOUR_GITHUB_USERNAME par le propriétaire réel avant la publication.
+# CODEOWNERS seul ne rend pas la revue obligatoire : protéger la branche.
+/.github/workflows/ @YOUR_GITHUB_USERNAME
+/tools/ @YOUR_GITHUB_USERNAME
+/config/ @YOUR_GITHUB_USERNAME
+/docs/permissions.md @YOUR_GITHUB_USERNAME
+/AGENTS.md @YOUR_GITHUB_USERNAME

@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "mode": "manual_v1",
+  "roles": ["test_preparation", "implementation", "verification", "human_approval"],
+  "limits": {"max_attempts_per_task": 2, "max_verification_seconds": 120},
+  "instructions": "La V1 fournit un état durable, mais ne lance pas d'agent automatiquement. Chaque rôle est exécuté manuellement dans une session séparée si nécessaire."
+}

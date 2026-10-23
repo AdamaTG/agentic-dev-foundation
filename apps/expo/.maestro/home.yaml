@@ -1,0 +1,5 @@
+appId: com.adf.reference
+---
+- launchApp
+- assertVisible: 'ADF Mobile Reference'
+- takeScreenshot: evidence-home

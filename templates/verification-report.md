@@ -1,0 +1,14 @@
+# 10 — Rapport final de vérification
+- **Tâche / commit :** `[TASK-ID]` / `[SHA]`
+- **Responsable :** `[nom]`
+- **Date :** `[date]`
+- **Commande :** `python tools/verify.py --profile full`
+- **Journal d'exécution :** `[chemin]`
+- **Rapport machine JSON :** `[chemin]`
+- **Contrôles exécutés :** `[nom / statut / durée / code]`
+- **Critères -> preuves :** `[AC-001 -> test + chemin]`
+- **Contrôles non exécutés :** `[raison + impact]`
+- **Analyse IA complémentaire :** `[observation, non preuve]`
+- **Risques et décisions humaines en attente :** `[liste]`
+- **Décision de clôture :** `[pending / approved / rejected]`
+- **Signataire :** `[nom]`

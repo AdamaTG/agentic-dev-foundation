@@ -1,0 +1,32 @@
+name: ADF Verification Level 2
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Non-configurable policy gate
+        shell: pwsh
+        run: python tools/check_policy.py
+      - name: Run controls and tests
+        shell: pwsh
+        run: python tools/verify.py --profile full
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: adf-level2-evidence
+          path: |
+            reports/verification.json
+            reports/unit-results.json
+            reports/acceptance-report.json
+          if-no-files-found: warn
+          retention-days: 7

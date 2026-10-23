@@ -1,0 +1,11 @@
+# 04 — Architecture et conventions
+- **Style architectural :** `[monolithe/modulaire/etc.]` (ex. modulaire)
+- **Modules et responsabilités :** `[tableau des modules]`
+- **Dépendances autorisées :** `[sens des appels]`
+- **Contrats / APIs :** `[format et politique de versionnement]`
+- **Conventions de code :** `[noms, formatage, typage]`
+- **Gestion des données sensibles :** `[règles]`
+- **Erreurs et journalisation :** `[politique]`
+- **Décisions ADR :** `[liens]`
+- **Testabilité :** `[injection de dépendances / doubles]`
+- **Règle V1 :** ne pas écrire de code applicatif dans `tools/` ; `tools/` sert au socle.

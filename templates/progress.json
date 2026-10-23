@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "task_id": "TASK-001",
+  "status": "pending",
+  "attempts": 0,
+  "max_attempts": 2,
+  "updated_at": null,
+  "scope": "[périmètre de travail]",
+  "dependencies": [],
+  "acceptance_criteria": ["AC-001"],
+  "approval_required": true,
+  "approval_granted": false,
+  "evidence_refs": [],
+  "last_error": null,
+  "history": []
+}

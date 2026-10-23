@@ -1,0 +1,10 @@
+# 07 — Modèle de découpage (convention ADF, sans lecteur YAML requis en V1)
+id: TASK-001
+scope: "[limite précise de la tâche]"
+depends_on: []
+acceptance_criteria: [AC-001]
+status: pending
+max_attempts: 2
+human_approval_required: true
+evidence_refs: []
+# Exemple : scope: "Validation du formulaire de signalement, sans envoi réseau"

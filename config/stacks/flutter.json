@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "stack": "flutter",
+  "project_directory": "apps/flutter",
+  "profiles": {
+    "quick": [
+      "lint",
+      "typecheck"
+    ],
+    "full": [
+      "lint",
+      "typecheck",
+      "unit",
+      "integration"
+    ],
+    "e2e": [
+      "lint",
+      "typecheck",
+      "unit",
+      "integration",
+      "e2e"
+    ]
+  },
+  "checks": {
+    "lint": {
+      "directory": "apps/flutter",
+      "command": [
+        "flutter",
+        "analyze",
+        "--fatal-infos"
+      ],
+      "timeout_seconds": 300,
+      "artifacts": []
+    },
+    "typecheck": {
+      "directory": "apps/flutter",
+      "command": [
+        "dart",
+        "analyze",
+        "--fatal-infos"
+      ],
+      "timeout_seconds": 300,
+      "artifacts": []
+    },
+    "unit": {
+      "directory": "apps/flutter",
+      "command": [
+        "flutter",
+        "test",
+        "test"
+      ],
+      "timeout_seconds": 300,
+      "artifacts": []
+    },
+    "integration": {
+      "directory": "apps/flutter",
+      "command": [
+        "flutter",
+        "test",
+        "integration_test",
+        "-d",
+        "linux"
+      ],
+      "timeout_seconds": 300,
+      "artifacts": []
+    },
+    "e2e": {
+      "directory": "apps/flutter",
+      "command": [
+        "flutter",
+        "test",
+        "integration_test",
+        "-d",
+        "linux"
+      ],
+      "timeout_seconds": 900,
+      "artifacts": []
+    }
+  }
+}
